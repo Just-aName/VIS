@@ -1,0 +1,73 @@
+﻿@model VIS.Models.Views.MealViewModel
+
+@{
+    ViewBag.Title = "MealDetail";
+}
+
+<h2>MealDetail</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nazev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nazev)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kalorie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kalorie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bilkoviny)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bilkoviny)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tuky)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tuky)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cukry)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cukry)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vlaknina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vlaknina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Verejne)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Verejne)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "MealEdit", new { meal_id = Model.Meal_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

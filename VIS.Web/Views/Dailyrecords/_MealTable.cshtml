@@ -1,0 +1,22 @@
+﻿@model List<VIS.Models.Views.MealViewModel>
+
+<div class="col-sm-12">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nazev</th>
+                <th>Kalorie</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.Nazev</td>
+                <td>@item.Kalorie</td>
+                <td><button onclick="selectMeal('@item.Nazev', '@item.Kalorie', '@item.Bilkoviny', '@item.Tuky', '@item.Cukry', '@item.Vlaknina')">Select</button></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

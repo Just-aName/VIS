@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VIS.Web", "VIS.Web\VIS.Web.csproj", "{B76283D8-B227-4084-9820-196912AA39FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VIS.Models", "VIS.Models\VIS.Models.csproj", "{76DEF844-10ED-49DA-A352-CEA65A193825}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Desktop\Desktop.csproj", "{8417DBB4-838C-48FE-8DA9-ACECBE39543A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B76283D8-B227-4084-9820-196912AA39FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B76283D8-B227-4084-9820-196912AA39FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B76283D8-B227-4084-9820-196912AA39FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B76283D8-B227-4084-9820-196912AA39FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76DEF844-10ED-49DA-A352-CEA65A193825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76DEF844-10ED-49DA-A352-CEA65A193825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76DEF844-10ED-49DA-A352-CEA65A193825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76DEF844-10ED-49DA-A352-CEA65A193825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8417DBB4-838C-48FE-8DA9-ACECBE39543A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8417DBB4-838C-48FE-8DA9-ACECBE39543A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8417DBB4-838C-48FE-8DA9-ACECBE39543A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8417DBB4-838C-48FE-8DA9-ACECBE39543A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5710E972-FF27-4CA3-9197-B3DAF4DF7838}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,153 @@
+﻿@model VIS.Models.Views.ReportDataViewModel
+
+@{
+    ViewBag.Title = "Generate";
+}
+
+<h2>Report</h2>
+
+@if (Model.Meal)
+{
+    <h2>Meal</h2>
+    <table class="table">
+        <tr>
+            @if (Model.Nazev && !Model.DaySummary)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Nazev)
+                </th>
+            }
+            @if (Model.Kalorie)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Kalorie)
+                </th>
+            }
+            @if (Model.Datum)
+            {
+                <th>
+                    @Html.DisplayName("Datum")
+                </th>
+            }
+        </tr>
+        @if (!Model.DaySummary)
+        {
+            foreach (var item in Model.MealCollection)
+            {
+                <tr>
+                    @if (Model.Nazev)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nazev)
+                        </td>
+                    }
+                    @if (Model.Kalorie)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Kalorie)
+                        </td>
+                    }
+                    @if (Model.Datum)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Datum)
+                        </td>
+                    }
+                </tr>
+            }
+        }
+        else
+        {
+            foreach (var item in Model.MealSummaryCollection)
+            {
+                <tr>
+                    @if (Model.Kalorie)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Kalorie)
+                        </td>
+                    }
+                    @if (Model.Datum)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Datum)
+                        </td>
+                    }
+                </tr>
+            }
+        }
+    </table>
+}
+@if (Model.Activity)
+{
+    <h2>Activity</h2>
+    <table class="table">
+        <tr>
+            @if (Model.Nazev && !Model.DaySummary)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Nazev)
+                </th>
+            }
+            @if (Model.Kalorie)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Kalorie)
+                </th>
+            }
+            @if (Model.Datum)
+            {
+                <th>
+                    @Html.DisplayName("Datum")
+                </th>
+            }
+        </tr>
+        @if (!Model.DaySummary)
+        {
+            foreach (var item in Model.ActivityCollection)
+            {
+                <tr>
+                    @if (Model.Nazev)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nazev)
+                        </td>
+                    }
+                    @if (Model.Kalorie)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Kalorie)
+                        </td>
+                    }
+                    @if (Model.Datum)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Datum)
+                        </td>
+                    }
+                </tr>
+            }
+        }
+        else
+        {
+            foreach (var item in Model.ActivitySummaryCollection)
+            {
+                <tr>
+                    @if (Model.Kalorie)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Kalorie)
+                        </td>
+                    }
+                    @if (Model.Datum)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Datum)
+                        </td>
+                    }
+                </tr>
+            }
+        }
+    </table>
+}
+

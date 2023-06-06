@@ -1,0 +1,94 @@
+﻿@model IEnumerable<VIS.Models.Views.DailyrecordsViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    DateTime date = ViewBag.Date;
+}
+
+<div>
+    <h2>@date.ToShortDateString()</h2>
+    <input type="button" value="Previous" onclick="window.location='@Url.Action("Index", "Dailyrecords", new { date = date.AddDays(-1) })'" />
+    <input type="button" value="Next" onclick="window.location='@Url.Action("Index", "Dailyrecords", new { date = date.AddDays(1) })'" />
+</div>
+
+<h2>Meal</h2>
+<p>
+    @Html.ActionLink("Add Meal", "AddMeal", new { date = date.Date})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Meal.Nazev)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Meal.Kalorie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pocet)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.Meal != null)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Meal.Nazev)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Meal.Kalorie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pocet)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "MealEdit", new { meal_id = item.Meal.Meal_id}) |
+                    @Html.ActionLink("Details", "MealDetail", new { meal_id = item.Meal.Meal_id}) |
+                    @Html.ActionLink("Delete", "Delete", new { record_id = item.Record_id})
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+<h2>Activity</h2>
+<p>
+    @Html.ActionLink("Add Activity", "AddActivity")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Activity.Nazev)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activity.Kalorie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pocet)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.Activity != null)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activity.Nazev)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activity.Kalorie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pocet)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "ActivityEdit", new { activity_id = item.Activity.Activity_id }) |
+                    @Html.ActionLink("Details", "ActivityDetail", new { activity_id = item.Activity.Activity_id }) |
+                    @Html.ActionLink("Delete", "Delete", new { record_id = item.Record_id })
+                </td>
+            </tr>
+        }
+    }
+</table>

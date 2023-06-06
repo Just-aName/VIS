@@ -1,0 +1,30 @@
+﻿@using ATC.LunchSystem.Models
+@using ATC.LunchSystem.Web.Models.Menu
+@model ATC.LunchSystem.Web.Models.Users.UsersViewModel
+<!--Modal Dialog-->
+<div id="usersImportDialog" class="modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        @Html.BeginForm("Import", "Users", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form" })
+        {
+        @Html.HiddenFor(x => x.ImportCompanyId, new { required=true, min=1 })
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Html.GetTranslation(TransKeys.lblImportUsers, Messages.lblImportUsers)</h4>
+            </div>
+            <div class="modal-body">
+                @Html.GetCompaniesCombo(Model.SignUpViewModel.Companies, nameof(Model.ImportCompanyId))
+                <input name="ImportUsers" type="file" accept=".csv" placeholder="*.csv" />
+                <br />
+                <p>Prosím, formátujte sloupce v následujícím pořadí: Email, Jméno, Příjmení, ID karty</p>
+                <p>Systém počítá s hlavičkou - řádky jsou importovány od druhého řádku.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" onclick="event.preventDefault(); $('#usersImportDialog').modal('toggle');">@Html.GetTranslation(TransKeys.lblClose, Messages.lblClose)</button>
+                <button class="btn btn-primary" type="submit">@Html.GetTranslation(TransKeys.lblSubmit, Messages.lblSubmit)</button>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+<!--/Modal Dialog-->

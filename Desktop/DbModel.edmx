@@ -1,0 +1,1092 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VISModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="Activity_id" />
+          </Key>
+          <Property Name="Activity_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nazev" Type="nvarchar" MaxLength="100" />
+          <Property Name="Kalorie" Type="float" />
+          <Property Name="Verejne" Type="bit" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Comment_id" />
+          </Key>
+          <Property Name="Comment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="varchar" MaxLength="8000" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dailyrecords">
+          <Key>
+            <PropertyRef Name="Record_id" />
+          </Key>
+          <Property Name="Record_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Datum" Type="date" />
+          <Property Name="Pocet" Type="float" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Meal_id" Type="int" />
+          <Property Name="Activity_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Meal">
+          <Key>
+            <PropertyRef Name="Meal_id" />
+          </Key>
+          <Property Name="Meal_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nazev" Type="varchar" MaxLength="100" />
+          <Property Name="Kalorie" Type="float" />
+          <Property Name="Bilkoviny" Type="float" />
+          <Property Name="Tuky" Type="float" />
+          <Property Name="Cukry" Type="float" />
+          <Property Name="Vlaknina" Type="float" />
+          <Property Name="Verejne" Type="bit" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="Report_id" />
+          </Key>
+          <Property Name="Report_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nazev" Type="varchar" MaxLength="100" />
+          <Property Name="Jsonconfig" Type="varchar" MaxLength="8000" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Comment_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Role_ID" />
+          </Key>
+          <Property Name="Role_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="75" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="512" />
+          <Property Name="SecurityStamp" Type="nvarchar" MaxLength="512" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="75" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExternalLogin" Type="bit" Nullable="false" />
+          <Property Name="RegistrationGUID" Type="varchar" MaxLength="100" />
+          <Property Name="GUIDExpirationDate" Type="datetime" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="Trener_ID" Type="int" />
+          <Property Name="Usersettings_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="UserClaim">
+          <Key>
+            <PropertyRef Name="UserClaim_ID" />
+          </Key>
+          <Property Name="UserClaim_ID" Type="int" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="User_ID" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="User_ID" />
+            <PropertyRef Name="Role_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Role_ID" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Usersettings">
+          <Key>
+            <PropertyRef Name="Settings_id" />
+          </Key>
+          <Property Name="Settings_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kalorie" Type="float" />
+          <Property Name="Bilkoviny" Type="float" />
+          <Property Name="Tuky" Type="float" />
+          <Property Name="Cukry" Type="float" />
+          <Property Name="Vlaknina" Type="float" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Weeklyrecords">
+          <Key>
+            <PropertyRef Name="Record_id" />
+          </Key>
+          <Property Name="Record_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Datum" Type="date" />
+          <Property Name="Vaha" Type="float" />
+          <Property Name="Prsa" Type="float" />
+          <Property Name="Bricho" Type="float" />
+          <Property Name="Pas" Type="float" />
+          <Property Name="Zadek" Type="float" />
+          <Property Name="Ruka_prava" Type="float" />
+          <Property Name="Ruka_leva" Type="float" />
+          <Property Name="Stehno_leve" Type="float" />
+          <Property Name="Stehno_prave" Type="float" />
+          <Property Name="Lytko_prave" Type="float" />
+          <Property Name="Lytko_leve" Type="float" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Comment_id" Type="int" />
+        </EntityType>
+        <Association Name="activity_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="comment_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="dailyrecords_activity_fk">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="Dailyrecords" Type="Self.Dailyrecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="Activity_id" />
+            </Principal>
+            <Dependent Role="Dailyrecords">
+              <PropertyRef Name="Activity_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="dailyrecords_meal_fk">
+          <End Role="Meal" Type="Self.Meal" Multiplicity="0..1" />
+          <End Role="Dailyrecords" Type="Self.Dailyrecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meal">
+              <PropertyRef Name="Meal_id" />
+            </Principal>
+            <Dependent Role="Dailyrecords">
+              <PropertyRef Name="Meal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="dailyrecords_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Dailyrecords" Type="Self.Dailyrecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Dailyrecords">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserClaims_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserClaim" Type="Self.UserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="UserClaim">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogins_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Role_ID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="Role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="meal_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Meal" Type="Self.Meal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Meal">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="report_comment_fk">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Comment_id" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="Comment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="report_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User1" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="User1">
+              <PropertyRef Name="Trener_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_usersettings_fk">
+          <End Role="Usersettings" Type="Self.Usersettings" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usersettings">
+              <PropertyRef Name="Settings_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Usersettings_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usersettings_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Usersettings" Type="Self.Usersettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Usersettings">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="weeklyrecords_comment_fk">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Weeklyrecords" Type="Self.Weeklyrecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Comment_id" />
+            </Principal>
+            <Dependent Role="Weeklyrecords">
+              <PropertyRef Name="Comment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="weeklyrecords_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Weeklyrecords" Type="Self.Weeklyrecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Weeklyrecords">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VISModelStoreContainer">
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dailyrecords" EntityType="Self.Dailyrecords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Meal" EntityType="Self.Meal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usersettings" EntityType="Self.Usersettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Weeklyrecords" EntityType="Self.Weeklyrecords" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="activity_user_fk" Association="Self.activity_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="comment_user_fk" Association="Self.comment_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="dailyrecords_activity_fk" Association="Self.dailyrecords_activity_fk">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="Dailyrecords" EntitySet="Dailyrecords" />
+          </AssociationSet>
+          <AssociationSet Name="dailyrecords_meal_fk" Association="Self.dailyrecords_meal_fk">
+            <End Role="Meal" EntitySet="Meal" />
+            <End Role="Dailyrecords" EntitySet="Dailyrecords" />
+          </AssociationSet>
+          <AssociationSet Name="dailyrecords_user_fk" Association="Self.dailyrecords_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Dailyrecords" EntitySet="Dailyrecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserClaims_User" Association="Self.FK_UserClaims_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserClaim" EntitySet="UserClaim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogins_User" Association="Self.FK_UserLogins_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserLogin" EntitySet="UserLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="meal_user_fk" Association="Self.meal_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Meal" EntitySet="Meal" />
+          </AssociationSet>
+          <AssociationSet Name="report_comment_fk" Association="Self.report_comment_fk">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="report_user_fk" Association="Self.report_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="user_user_fk" Association="Self.user_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="User1" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="user_usersettings_fk" Association="Self.user_usersettings_fk">
+            <End Role="Usersettings" EntitySet="Usersettings" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="usersettings_user_fk" Association="Self.usersettings_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Usersettings" EntitySet="Usersettings" />
+          </AssociationSet>
+          <AssociationSet Name="weeklyrecords_comment_fk" Association="Self.weeklyrecords_comment_fk">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Weeklyrecords" EntitySet="Weeklyrecords" />
+          </AssociationSet>
+          <AssociationSet Name="weeklyrecords_user_fk" Association="Self.weeklyrecords_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Weeklyrecords" EntitySet="Weeklyrecords" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VISModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="Activity_id" />
+          </Key>
+          <Property Name="Activity_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nazev" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Kalorie" Type="Double" />
+          <Property Name="Verejne" Type="Boolean" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.activity_user_fk" FromRole="Activity" ToRole="User" />
+          <NavigationProperty Name="Dailyrecords" Relationship="Self.dailyrecords_activity_fk" FromRole="Activity" ToRole="Dailyrecords" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Comment_id" />
+          </Key>
+          <Property Name="Comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.comment_user_fk" FromRole="Comment" ToRole="User" />
+          <NavigationProperty Name="Report" Relationship="Self.report_comment_fk" FromRole="Comment" ToRole="Report" />
+          <NavigationProperty Name="Weeklyrecords" Relationship="Self.weeklyrecords_comment_fk" FromRole="Comment" ToRole="Weeklyrecords" />
+        </EntityType>
+        <EntityType Name="Dailyrecords">
+          <Key>
+            <PropertyRef Name="Record_id" />
+          </Key>
+          <Property Name="Record_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Datum" Type="DateTime" Precision="0" />
+          <Property Name="Pocet" Type="Double" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Meal_id" Type="Int32" />
+          <Property Name="Activity_id" Type="Int32" />
+          <NavigationProperty Name="Activity" Relationship="Self.dailyrecords_activity_fk" FromRole="Dailyrecords" ToRole="Activity" />
+          <NavigationProperty Name="Meal" Relationship="Self.dailyrecords_meal_fk" FromRole="Dailyrecords" ToRole="Meal" />
+          <NavigationProperty Name="User" Relationship="Self.dailyrecords_user_fk" FromRole="Dailyrecords" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Meal">
+          <Key>
+            <PropertyRef Name="Meal_id" />
+          </Key>
+          <Property Name="Meal_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nazev" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Kalorie" Type="Double" />
+          <Property Name="Bilkoviny" Type="Double" />
+          <Property Name="Tuky" Type="Double" />
+          <Property Name="Cukry" Type="Double" />
+          <Property Name="Vlaknina" Type="Double" />
+          <Property Name="Verejne" Type="Boolean" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dailyrecords" Relationship="Self.dailyrecords_meal_fk" FromRole="Meal" ToRole="Dailyrecords" />
+          <NavigationProperty Name="User" Relationship="Self.meal_user_fk" FromRole="Meal" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="Report_id" />
+          </Key>
+          <Property Name="Report_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nazev" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Jsonconfig" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Comment_id" Type="Int32" />
+          <NavigationProperty Name="Comment" Relationship="Self.report_comment_fk" FromRole="Report" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="Self.report_user_fk" FromRole="Report" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Role_ID" />
+          </Key>
+          <Property Name="Role_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExternalLogin" Type="Boolean" Nullable="false" />
+          <Property Name="RegistrationGUID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="GUIDExpirationDate" Type="DateTime" Precision="3" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="Trener_ID" Type="Int32" />
+          <Property Name="Usersettings_ID" Type="Int32" />
+          <NavigationProperty Name="Activity" Relationship="Self.activity_user_fk" FromRole="User" ToRole="Activity" />
+          <NavigationProperty Name="Comment" Relationship="Self.comment_user_fk" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Dailyrecords" Relationship="Self.dailyrecords_user_fk" FromRole="User" ToRole="Dailyrecords" />
+          <NavigationProperty Name="Meal" Relationship="Self.meal_user_fk" FromRole="User" ToRole="Meal" />
+          <NavigationProperty Name="Report" Relationship="Self.report_user_fk" FromRole="User" ToRole="Report" />
+          <NavigationProperty Name="UserClaim" Relationship="Self.FK_UserClaims_User" FromRole="User" ToRole="UserClaim" />
+          <NavigationProperty Name="UserLogin" Relationship="Self.FK_UserLogins_User" FromRole="User" ToRole="UserLogin" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="User1" Relationship="Self.user_user_fk" FromRole="User" ToRole="User1" />
+          <NavigationProperty Name="User2" Relationship="Self.user_user_fk" FromRole="User1" ToRole="User" />
+          <NavigationProperty Name="Usersettings" Relationship="Self.user_usersettings_fk" FromRole="User" ToRole="Usersettings" />
+          <NavigationProperty Name="Usersettings1" Relationship="Self.usersettings_user_fk" FromRole="User" ToRole="Usersettings" />
+          <NavigationProperty Name="Weeklyrecords" Relationship="Self.weeklyrecords_user_fk" FromRole="User" ToRole="Weeklyrecords" />
+        </EntityType>
+        <EntityType Name="UserClaim">
+          <Key>
+            <PropertyRef Name="UserClaim_ID" />
+          </Key>
+          <Property Name="UserClaim_ID" Type="Int32" Nullable="false" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserClaims_User" FromRole="UserClaim" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="User_ID" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserLogins_User" FromRole="UserLogin" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="User_ID" />
+            <PropertyRef Name="Role_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Role_ID" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserRole_User" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Usersettings">
+          <Key>
+            <PropertyRef Name="Settings_id" />
+          </Key>
+          <Property Name="Settings_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kalorie" Type="Double" />
+          <Property Name="Bilkoviny" Type="Double" />
+          <Property Name="Tuky" Type="Double" />
+          <Property Name="Cukry" Type="Double" />
+          <Property Name="Vlaknina" Type="Double" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.user_usersettings_fk" FromRole="Usersettings" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.usersettings_user_fk" FromRole="Usersettings" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Weeklyrecords">
+          <Key>
+            <PropertyRef Name="Record_id" />
+          </Key>
+          <Property Name="Record_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Datum" Type="DateTime" Precision="0" />
+          <Property Name="Vaha" Type="Double" />
+          <Property Name="Prsa" Type="Double" />
+          <Property Name="Bricho" Type="Double" />
+          <Property Name="Pas" Type="Double" />
+          <Property Name="Zadek" Type="Double" />
+          <Property Name="Ruka_prava" Type="Double" />
+          <Property Name="Ruka_leva" Type="Double" />
+          <Property Name="Stehno_leve" Type="Double" />
+          <Property Name="Stehno_prave" Type="Double" />
+          <Property Name="Lytko_prave" Type="Double" />
+          <Property Name="Lytko_leve" Type="Double" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Comment_id" Type="Int32" />
+          <NavigationProperty Name="Comment" Relationship="Self.weeklyrecords_comment_fk" FromRole="Weeklyrecords" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="Self.weeklyrecords_user_fk" FromRole="Weeklyrecords" ToRole="User" />
+        </EntityType>
+        <Association Name="activity_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="dailyrecords_activity_fk">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="Dailyrecords" Type="Self.Dailyrecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="Activity_id" />
+            </Principal>
+            <Dependent Role="Dailyrecords">
+              <PropertyRef Name="Activity_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="comment_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="report_comment_fk">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Comment_id" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="Comment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="weeklyrecords_comment_fk">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Weeklyrecords" Type="Self.Weeklyrecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Comment_id" />
+            </Principal>
+            <Dependent Role="Weeklyrecords">
+              <PropertyRef Name="Comment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="dailyrecords_meal_fk">
+          <End Role="Meal" Type="Self.Meal" Multiplicity="0..1" />
+          <End Role="Dailyrecords" Type="Self.Dailyrecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meal">
+              <PropertyRef Name="Meal_id" />
+            </Principal>
+            <Dependent Role="Dailyrecords">
+              <PropertyRef Name="Meal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="dailyrecords_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Dailyrecords" Type="Self.Dailyrecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Dailyrecords">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="meal_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Meal" Type="Self.Meal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Meal">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="report_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Role_ID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="Role_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserClaims_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserClaim" Type="Self.UserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="UserClaim">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogins_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserLogin" Type="Self.UserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="UserLogin">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User1" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="User1">
+              <PropertyRef Name="Trener_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_usersettings_fk">
+          <End Role="Usersettings" Type="Self.Usersettings" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usersettings">
+              <PropertyRef Name="Settings_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Usersettings_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usersettings_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Usersettings" Type="Self.Usersettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Usersettings">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="weeklyrecords_user_fk">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Weeklyrecords" Type="Self.Weeklyrecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Weeklyrecords">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VISEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activity" EntityType="Self.Activity" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" />
+          <EntitySet Name="Dailyrecords" EntityType="Self.Dailyrecords" />
+          <EntitySet Name="Meal" EntityType="Self.Meal" />
+          <EntitySet Name="Report" EntityType="Self.Report" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="UserClaim" EntityType="Self.UserClaim" />
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" />
+          <EntitySet Name="Usersettings" EntityType="Self.Usersettings" />
+          <EntitySet Name="Weeklyrecords" EntityType="Self.Weeklyrecords" />
+          <AssociationSet Name="activity_user_fk" Association="Self.activity_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Activity" EntitySet="Activity" />
+          </AssociationSet>
+          <AssociationSet Name="dailyrecords_activity_fk" Association="Self.dailyrecords_activity_fk">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="Dailyrecords" EntitySet="Dailyrecords" />
+          </AssociationSet>
+          <AssociationSet Name="comment_user_fk" Association="Self.comment_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="report_comment_fk" Association="Self.report_comment_fk">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="weeklyrecords_comment_fk" Association="Self.weeklyrecords_comment_fk">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Weeklyrecords" EntitySet="Weeklyrecords" />
+          </AssociationSet>
+          <AssociationSet Name="dailyrecords_meal_fk" Association="Self.dailyrecords_meal_fk">
+            <End Role="Meal" EntitySet="Meal" />
+            <End Role="Dailyrecords" EntitySet="Dailyrecords" />
+          </AssociationSet>
+          <AssociationSet Name="dailyrecords_user_fk" Association="Self.dailyrecords_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Dailyrecords" EntitySet="Dailyrecords" />
+          </AssociationSet>
+          <AssociationSet Name="meal_user_fk" Association="Self.meal_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Meal" EntitySet="Meal" />
+          </AssociationSet>
+          <AssociationSet Name="report_user_fk" Association="Self.report_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserClaims_User" Association="Self.FK_UserClaims_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserClaim" EntitySet="UserClaim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogins_User" Association="Self.FK_UserLogins_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserLogin" EntitySet="UserLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="user_user_fk" Association="Self.user_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="User1" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="user_usersettings_fk" Association="Self.user_usersettings_fk">
+            <End Role="Usersettings" EntitySet="Usersettings" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="usersettings_user_fk" Association="Self.usersettings_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Usersettings" EntitySet="Usersettings" />
+          </AssociationSet>
+          <AssociationSet Name="weeklyrecords_user_fk" Association="Self.weeklyrecords_user_fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Weeklyrecords" EntitySet="Weeklyrecords" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VISModelStoreContainer" CdmEntityContainer="VISEntities">
+          <EntitySetMapping Name="Activity">
+            <EntityTypeMapping TypeName="VISModel.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="Activity_id" ColumnName="Activity_id" />
+                <ScalarProperty Name="Nazev" ColumnName="Nazev" />
+                <ScalarProperty Name="Kalorie" ColumnName="Kalorie" />
+                <ScalarProperty Name="Verejne" ColumnName="Verejne" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="VISModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="Comment_id" ColumnName="Comment_id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dailyrecords">
+            <EntityTypeMapping TypeName="VISModel.Dailyrecords">
+              <MappingFragment StoreEntitySet="Dailyrecords">
+                <ScalarProperty Name="Record_id" ColumnName="Record_id" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Pocet" ColumnName="Pocet" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Meal_id" ColumnName="Meal_id" />
+                <ScalarProperty Name="Activity_id" ColumnName="Activity_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Meal">
+            <EntityTypeMapping TypeName="VISModel.Meal">
+              <MappingFragment StoreEntitySet="Meal">
+                <ScalarProperty Name="Meal_id" ColumnName="Meal_id" />
+                <ScalarProperty Name="Nazev" ColumnName="Nazev" />
+                <ScalarProperty Name="Kalorie" ColumnName="Kalorie" />
+                <ScalarProperty Name="Bilkoviny" ColumnName="Bilkoviny" />
+                <ScalarProperty Name="Tuky" ColumnName="Tuky" />
+                <ScalarProperty Name="Cukry" ColumnName="Cukry" />
+                <ScalarProperty Name="Vlaknina" ColumnName="Vlaknina" />
+                <ScalarProperty Name="Verejne" ColumnName="Verejne" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Report">
+            <EntityTypeMapping TypeName="VISModel.Report">
+              <MappingFragment StoreEntitySet="Report">
+                <ScalarProperty Name="Report_id" ColumnName="Report_id" />
+                <ScalarProperty Name="Nazev" ColumnName="Nazev" />
+                <ScalarProperty Name="Jsonconfig" ColumnName="Jsonconfig" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Comment_id" ColumnName="Comment_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="VISModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="VISModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ExternalLogin" ColumnName="ExternalLogin" />
+                <ScalarProperty Name="RegistrationGUID" ColumnName="RegistrationGUID" />
+                <ScalarProperty Name="GUIDExpirationDate" ColumnName="GUIDExpirationDate" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="Trener_ID" ColumnName="Trener_ID" />
+                <ScalarProperty Name="Usersettings_ID" ColumnName="Usersettings_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserClaim">
+            <EntityTypeMapping TypeName="VISModel.UserClaim">
+              <MappingFragment StoreEntitySet="UserClaim">
+                <ScalarProperty Name="UserClaim_ID" ColumnName="UserClaim_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogin">
+            <EntityTypeMapping TypeName="VISModel.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRole">
+            <EntityTypeMapping TypeName="VISModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usersettings">
+            <EntityTypeMapping TypeName="VISModel.Usersettings">
+              <MappingFragment StoreEntitySet="Usersettings">
+                <ScalarProperty Name="Settings_id" ColumnName="Settings_id" />
+                <ScalarProperty Name="Kalorie" ColumnName="Kalorie" />
+                <ScalarProperty Name="Bilkoviny" ColumnName="Bilkoviny" />
+                <ScalarProperty Name="Tuky" ColumnName="Tuky" />
+                <ScalarProperty Name="Cukry" ColumnName="Cukry" />
+                <ScalarProperty Name="Vlaknina" ColumnName="Vlaknina" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Weeklyrecords">
+            <EntityTypeMapping TypeName="VISModel.Weeklyrecords">
+              <MappingFragment StoreEntitySet="Weeklyrecords">
+                <ScalarProperty Name="Record_id" ColumnName="Record_id" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Vaha" ColumnName="Vaha" />
+                <ScalarProperty Name="Prsa" ColumnName="Prsa" />
+                <ScalarProperty Name="Bricho" ColumnName="Bricho" />
+                <ScalarProperty Name="Pas" ColumnName="Pas" />
+                <ScalarProperty Name="Zadek" ColumnName="Zadek" />
+                <ScalarProperty Name="Ruka_prava" ColumnName="Ruka_prava" />
+                <ScalarProperty Name="Ruka_leva" ColumnName="Ruka_leva" />
+                <ScalarProperty Name="Stehno_leve" ColumnName="Stehno_leve" />
+                <ScalarProperty Name="Stehno_prave" ColumnName="Stehno_prave" />
+                <ScalarProperty Name="Lytko_prave" ColumnName="Lytko_prave" />
+                <ScalarProperty Name="Lytko_leve" ColumnName="Lytko_leve" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Comment_id" ColumnName="Comment_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

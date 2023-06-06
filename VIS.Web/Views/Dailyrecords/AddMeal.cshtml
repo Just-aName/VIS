@@ -1,0 +1,184 @@
+﻿@model VIS.Models.Views.AddMealViewModel
+
+@{
+    ViewBag.Title = "AddMeal";
+    DateTime date = ViewBag.SelectedDate;
+}
+
+
+@section Scripts{
+    <script type="text/javascript" charset="utf-8">
+
+        function openMealDialog() {
+            $("#GSCCModal").modal();
+        }
+
+        $(() => {
+            $('#txtSearch').on('keyup', () => {
+                getMeals();
+            });
+        });
+
+        function getMeals() {
+            $.ajax({
+                url: '@Url.Action("SearchMeal", "Dailyrecords")',
+                dataType: 'html',
+                method: 'GET',
+                data: { searchText: $('#txtSearch').val() },
+                success: function (res) {
+                    $('#gridMeal').html('').html(res);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        }
+
+        function selectMeal(nazev, kalorie, bilkoviny, tuky, cukry, vlaknina) {
+            $('#NazevLabel').val(nazev);
+            $('#KalorieLabel').val(kalorie);
+            $('#BilkovinyLabel').val(bilkoviny);
+            $('#TukyLabel').val(tuky);
+            $('#CukryLabel').val(cukry);
+            $('#VlakninaLabel').val(vlaknina);
+            $('#GSCCModal').modal('hide');
+        }
+
+    </script>
+}
+
+<h2>AddMeal</h2>
+<button id="openDialogButton" onclick="openMealDialog()" type="button"> Show Meal List </button>
+
+<div id="GSCCModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-inline pull-right">
+                            <label>Search</label>
+                            <input type"text" class="form-control" id="txtSearch">
+                        </div>
+                    </div>
+                    <div id="gridMeal"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })@*
+            <div class="form-group">
+                @Html.LabelFor(model => model.Meal_id, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Meal_id, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Meal_id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        *@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nazev, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nazev, new { htmlAttributes = new { @class = "form-control", @id="NazevLabel" } })
+                @Html.ValidationMessageFor(model => model.Nazev, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Datum, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Datum, new { htmlAttributes = new { @Value = date.ToShortDateString(), @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Datum, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Kalorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Kalorie, new { htmlAttributes = new { @class = "form-control", @id = "KalorieLabel" } })
+                @Html.ValidationMessageFor(model => model.Kalorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Bilkoviny, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Bilkoviny, new { htmlAttributes = new { @class = "form-control", @id = "BilkovinyLabel" } })
+                @Html.ValidationMessageFor(model => model.Bilkoviny, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tuky, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tuky, new { htmlAttributes = new { @class = "form-control", @id = "TukyLabel" } })
+                @Html.ValidationMessageFor(model => model.Tuky, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cukry, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cukry, new { htmlAttributes = new { @class = "form-control", @id = "CukryLabel" } })
+                @Html.ValidationMessageFor(model => model.Cukry, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vlaknina, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Vlaknina, new { htmlAttributes = new { @class = "form-control", @id = "VlakninaLabel" } })
+                @Html.ValidationMessageFor(model => model.Vlaknina, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Verejne, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Verejne, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Verejne, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*
+            <div class="form-group">
+                @Html.LabelFor(model => model.User_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.User_ID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.User_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pocet, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Pocet, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Pocet, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

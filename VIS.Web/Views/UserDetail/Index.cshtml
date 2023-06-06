@@ -1,0 +1,71 @@
+﻿@model ATC.LunchSystem.Web.Models.Users.UserDetailViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="user-info">
+        <img src="~/Content/images/user_image.svg" style="width:150px;height:150px;float:left" />
+        <div>
+            <label style="display:block;font-size:22px">@(Model.FirstName + " " + Model.LastName)</label>
+            <label style="display:block;font-size:18px">@(Model.Email)</label>
+            <label style="display:block;font-size:18px;font-style: italic;">@(Model.CompanyName)</label>
+            <label style="display:block;font-size:18px;font-style: italic;">@Model.Role</label>
+            <div class="clearfix"></div>
+            @Html.ActionLink("Edit User", "Edit", new { id = Model.UserID })
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cards)
+            </th>
+            <td>
+                <input type="number" id="newCardNumber" name="newCardNumber">
+                <button class="btn btn-success" onclick="AddNewCard()">AddCard</button>
+            </td>
+        </tr>
+        @foreach (var item in Model.Cards)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item)
+                </td>
+                <td>
+                    <button class="btn btn-danger" onclick="RemoveCard(@item)">RemoveCard</button>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+@section Scripts {
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script type="text/javascript">
+
+        function AddNewCard() {
+            var a = document.getElementById("newCardNumber").value;
+            $.ajax({
+                data: 'cardID=' + document.getElementById("newCardNumber").value + '&userID=' + @Model.UserID,
+                url: '@Url.Action("AddCard")',
+                async: false,
+                dataType: "json"
+            });
+            location.reload();
+        }
+
+        function RemoveCard(item) {
+            var a = item;
+            $.ajax({
+                data: 'cardID=' + item + '&userID=' + @Model.UserID,
+                url: '@Url.Action("RemoveCard")',
+                async: false,
+                dataType: "json"
+            });
+            location.reload();
+        }
+
+
+    </script>
+}
